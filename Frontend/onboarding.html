@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BharatFlow — Set Up Your Profile & Goals</title>
+  <meta name="description" content="Configure your BharatFlow profile, set notification goals and connect your email for smart WhatsApp delivery." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="onboarding.css" />
+</head>
+<body>
+  <div class="bg-mesh"></div>
+
+  <!-- Top Progress Bar -->
+  <div class="onboard-topbar">
+    <a href="index.html" class="nav-logo" style="text-decoration:none; display:flex; align-items:center; gap:10px">
+      <div class="logo-mark">
+        <svg width="36" height="36" viewBox="0 0 28 28" fill="none">
+          <path d="M14 2L26 8V20L14 26L2 20V8L14 2Z" fill="url(#g-ob)" opacity="0.9"/>
+          <path d="M14 8L20 11V17L14 20L8 17V11L14 8Z" fill="white" opacity="0.28"/>
+          <circle cx="14" cy="14" r="3" fill="white"/>
+          <defs><linearGradient id="g-ob" x1="2" y1="2" x2="26" y2="26" gradientUnits="userSpaceOnUse"><stop stop-color="#6C3BF5"/><stop offset="1" stop-color="#4F8EF7"/></linearGradient></defs>
+        </svg>
+      </div>
+      <span class="logo-text">BharatFlow</span>
+    </a>
+    <div class="onboard-progress-wrap">
+      <div class="onboard-steps-indicator">
+        <div class="step-dot active" data-step="1" title="Profile"></div>
+        <div class="step-line"></div>
+        <div class="step-dot" data-step="2" title="Goals"></div>
+        <div class="step-line"></div>
+        <div class="step-dot" data-step="3" title="Filters"></div>
+        <div class="step-line"></div>
+        <div class="step-dot" data-step="4" title="Connect"></div>
+      </div>
+      <span class="onboard-step-label" id="step-label">Step 1 of 4 — Your Profile</span>
+    </div>
+    <span class="onboard-skip" onclick="skipOnboarding()" data-i18n="ob.skip">Skip Setup →</span>
+    <div class="nav-controls" style="display:flex;align-items:center;gap:6px;">
+      <div class="lang-btn" role="group">
+        <button class="lang-opt active" id="lang-en" onclick="setLang('en')" aria-pressed="true">EN</button>
+        <button class="lang-opt" id="lang-hi" onclick="setLang('hi')" aria-pressed="false">हिं</button>
+      </div>
+      <button class="theme-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+        <svg id="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg>
+        <svg id="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <main class="onboard-main">
+
+    <!-- ===== STEP 1: Profile ===== -->
+    <section class="onboard-step active" id="step-1">
+      <div class="onboard-card glass-card animate-scale-in">
+        <div class="onboard-card-header">
+          <div class="step-emoji">👤</div>
+          <h1>Tell Us About You</h1>
+          <p>Set up your profile so BharatFlow can personalize your notification experience.</p>
+        </div>
+
+        <form class="onboard-form" id="form-step1" onsubmit="nextStep(event, 2)">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="p-fname">First Name *</label>
+              <input class="form-input" type="text" id="p-fname" placeholder="Arjun" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="p-lname">Last Name *</label>
+              <input class="form-input" type="text" id="p-lname" placeholder="Rao" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="p-email">Email Address *</label>
+            <input class="form-input" type="email" id="p-email" placeholder="you@gmail.com" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="p-phone">WhatsApp Number *</label>
+            <div class="input-wrap">
+              <span class="input-prefix">🇮🇳 +91</span>
+              <input class="form-input" type="tel" id="p-phone" placeholder="98765 43210"
+                pattern="[0-9]{10}" maxlength="10" required style="padding-left:80px" />
+            </div>
+            <span style="font-size:0.78rem;color:var(--text-muted);margin-top:4px">
+              📌 This is where your filtered alerts will be sent
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="p-profession">Profession *</label>
+            <select class="form-select" id="p-profession" required>
+              <option value="" disabled selected>Select your field</option>
+              <option value="software">Software / Tech</option>
+              <option value="design">Design / UX</option>
+              <option value="data">Data Science / ML / AI</option>
+              <option value="product">Product Management</option>
+              <option value="marketing">Marketing / Growth</option>
+              <option value="finance">Finance / Accounting</option>
+              <option value="entrepreneur">Entrepreneur / Founder</option>
+              <option value="student">Student</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="p-timezone">Timezone</label>
+            <select class="form-select" id="p-timezone">
+              <option value="IST" selected>India Standard Time (IST, UTC+5:30)</option>
+              <option value="UTC">UTC</option>
+              <option value="EST">Eastern (UTC-5)</option>
+              <option value="PST">Pacific (UTC-8)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Notification Frequency</label>
+            <div class="freq-options">
+              <label class="freq-option" id="freq-instant">
+                <input type="radio" name="frequency" value="instant" checked />
+                <div class="freq-card">
+                  <span class="freq-icon">⚡</span>
+                  <span class="freq-name">Instant</span>
+                  <span class="freq-desc">Within 30 seconds</span>
+                </div>
+              </label>
+              <label class="freq-option" id="freq-digest">
+                <input type="radio" name="frequency" value="hourly" />
+                <div class="freq-card">
+                  <span class="freq-icon">🕐</span>
+                  <span class="freq-name">Hourly Digest</span>
+                  <span class="freq-desc">Batch per hour</span>
+                </div>
+              </label>
+              <label class="freq-option" id="freq-daily">
+                <input type="radio" name="frequency" value="daily" />
+                <div class="freq-card">
+                  <span class="freq-icon">📅</span>
+                  <span class="freq-name">Daily Summary</span>
+                  <span class="freq-desc">Once per day</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn btn-primary w-full" type="submit" style="justify-content:center">
+              Continue — Set Your Goals →
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===== STEP 2: Goals ===== -->
+    <section class="onboard-step" id="step-2">
+      <div class="onboard-card glass-card animate-scale-in">
+        <div class="onboard-card-header">
+          <div class="step-emoji">🎯</div>
+          <h1>What Are Your Goals?</h1>
+          <p>Select what matters to you. BharatFlow will prioritize these notification types.</p>
+        </div>
+
+        <form class="onboard-form" id="form-step2" onsubmit="nextStep(event, 3)">
+          <div class="goal-grid">
+            <label class="goal-card glass-card" id="goal-jobs">
+              <input type="checkbox" value="jobs" name="goals" />
+              <div class="goal-content">
+                <span class="goal-emoji">💼</span>
+                <span class="goal-name">Job Alerts</span>
+                <span class="goal-desc">New openings matching your skills</span>
+              </div>
+              <span class="goal-check">✓</span>
+            </label>
+
+            <label class="goal-card glass-card" id="goal-github">
+              <input type="checkbox" value="github" name="goals" />
+              <div class="goal-content">
+                <span class="goal-emoji">🐙</span>
+                <span class="goal-name">GitHub / Code</span>
+                <span class="goal-desc">PRs, issues, and code reviews</span>
+              </div>
+              <span class="goal-check">✓</span>
+            </label>
+
+            <label class="goal-card glass-card" id="goal-news">
+              <input type="checkbox" value="news" name="goals" />
+              <div class="goal-content">
+                <span class="goal-emoji">📰</span>
+                <span class="goal-name">Tech News</span>
+                <span class="goal-desc">Industry news & blog posts</span>
+              </div>
+              <span class="goal-check">✓</span>
+            </label>
+
+            <label class="goal-card glass-card" id="goal-finance">
+              <input type="checkbox" value="finance" name="goals" />
+              <div class="goal-content">
+                <span class="goal-emoji">📈</span>
+                <span class="goal-name">Finance / Markets</span>
+                <span class="goal-desc">Stock alerts & portfolio updates</span>
+              </div>
+              <span class="goal-check">✓</span>
+            </label>
+
+            <label class="goal-card glass-card" id="goal-learning">
+              <input type="checkbox" value="learning" name="goals" />
+              <div class="goal-content">
+                <span class="goal-emoji">🎓</span>
+                <span class="goal-name">Learning & Courses</span>
+                <span class="goal-desc">New courses, webinars & certifications</span>
+              </div>
+              <span class="goal-check">✓</span>
+            </label>
+
+            <label class="goal-card glass-card" id="goal-monitor">
+              <input type="checkbox" value="monitor" name="goals" />
+              <div class="goal-content">
+                <span class="goal-emoji">🖥️</span>
+                <span class="goal-name">Server Monitoring</span>
+                <span class="goal-desc">DevOps alerts & uptime notifications</span>
+              </div>
+              <span class="goal-check">✓</span>
+            </label>
+
+            <label class="goal-card glass-card" id="goal-client">
+              <input type="checkbox" value="client" name="goals" />
+              <div class="goal-content">
+                <span class="goal-emoji">🤝</span>
+                <span class="goal-name">Client Communication</span>
+                <span class="goal-desc">Priority messages from clients</span>
+              </div>
+              <span class="goal-check">✓</span>
+            </label>
+
+            <label class="goal-card glass-card" id="goal-events">
+              <input type="checkbox" value="events" name="goals" />
+              <div class="goal-content">
+                <span class="goal-emoji">🎪</span>
+                <span class="goal-name">Events & Meetups</span>
+                <span class="goal-desc">Tech events, hackathons & conferences</span>
+              </div>
+              <span class="goal-check">✓</span>
+            </label>
+          </div>
+
+          <div class="onboard-notice">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            Select at least one goal to continue. You can change these anytime from settings.
+          </div>
+
+          <div class="form-actions">
+            <button class="btn btn-ghost" type="button" onclick="prevStep(1)" style="flex-shrink:0">← Back</button>
+            <button class="btn btn-primary" type="submit" id="btn-goals" style="flex:1; justify-content:center">
+              Continue — Set Filters →
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===== STEP 3: Filters / Keywords ===== -->
+    <section class="onboard-step" id="step-3">
+      <div class="onboard-card glass-card animate-scale-in">
+        <div class="onboard-card-header">
+          <div class="step-emoji">🔍</div>
+          <h1>Configure Your Filters</h1>
+          <p>Define keywords and domains to hone your personal filter engine.</p>
+        </div>
+
+        <form class="onboard-form" id="form-step3" onsubmit="nextStep(event, 4)">
+
+          <!-- Keywords -->
+          <div class="form-group">
+            <label class="form-label">Priority Keywords</label>
+            <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:8px">
+              Emails containing these keywords will be highlighted and fast-tracked to WhatsApp.
+            </p>
+            <div class="tag-input-wrap">
+              <div class="tags-display" id="keywords-display"></div>
+              <input class="form-input" type="text" id="keyword-input"
+                placeholder="Type keyword + press Enter (e.g. SDE, React, urgent)" />
+            </div>
+            <div class="quick-tags">
+              <span style="font-size:0.78rem;color:var(--text-muted)">Quick add:</span>
+              <span class="quick-tag" onclick="addQuickTag('SDE')">SDE</span>
+              <span class="quick-tag" onclick="addQuickTag('React')">React</span>
+              <span class="quick-tag" onclick="addQuickTag('Python')">Python</span>
+              <span class="quick-tag" onclick="addQuickTag('urgent')">urgent</span>
+              <span class="quick-tag" onclick="addQuickTag('interview')">interview</span>
+              <span class="quick-tag" onclick="addQuickTag('offer')">offer</span>
+              <span class="quick-tag" onclick="addQuickTag('AI')">AI</span>
+            </div>
+          </div>
+
+          <!-- Block Keywords -->
+          <div class="form-group">
+            <label class="form-label">Block Keywords</label>
+            <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:8px">
+              Emails containing these will be silenced permanently.
+            </p>
+            <div class="tag-input-wrap">
+              <div class="tags-display" id="block-display"></div>
+              <input class="form-input" type="text" id="block-input"
+                placeholder="Type blocked word + press Enter (e.g. sale, discount, winner)" />
+            </div>
+            <div class="quick-tags">
+              <span style="font-size:0.78rem;color:var(--text-muted)">Quick add:</span>
+              <span class="quick-tag" onclick="addQuickBlock('sale')">sale</span>
+              <span class="quick-tag" onclick="addQuickBlock('discount')">discount</span>
+              <span class="quick-tag" onclick="addQuickBlock('winner')">winner</span>
+              <span class="quick-tag" onclick="addQuickBlock('unsubscribe')">unsubscribe</span>
+              <span class="quick-tag" onclick="addQuickBlock('newsletter')">newsletter</span>
+            </div>
+          </div>
+
+          <!-- Domain Whitelist -->
+          <div class="form-group">
+            <label class="form-label">Domain Whitelist</label>
+            <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:8px">
+              Only notify from these domains, even if content doesn't match keywords.
+            </p>
+            <div class="tag-input-wrap">
+              <div class="tags-display" id="domain-display"></div>
+              <input class="form-input" type="text" id="domain-input"
+                placeholder="e.g. linkedin.com, github.com, naukri.com" />
+            </div>
+            <div class="quick-tags">
+              <span style="font-size:0.78rem;color:var(--text-muted)">Quick add:</span>
+              <span class="quick-tag" onclick="addQuickDomain('linkedin.com')">linkedin.com</span>
+              <span class="quick-tag" onclick="addQuickDomain('github.com')">github.com</span>
+              <span class="quick-tag" onclick="addQuickDomain('naukri.com')">naukri.com</span>
+              <span class="quick-tag" onclick="addQuickDomain('leetcode.com')">leetcode.com</span>
+            </div>
+          </div>
+
+          <!-- Relevance Threshold -->
+          <div class="form-group">
+            <label class="form-label">AI Relevance Threshold</label>
+            <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:12px">
+              Only send notifications scoring above this threshold. Higher = stricter filtering.
+            </p>
+            <div class="range-wrap">
+              <input type="range" class="range-slider" id="relevance-slider"
+                min="0" max="100" value="65" oninput="updateSlider(this)" />
+              <div class="range-labels">
+                <span>All (0)</span>
+                <span class="range-value" id="range-val">65%</span>
+                <span>Strict (100)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quiet Hours -->
+          <div class="form-group">
+            <label class="form-label">Quiet Hours (No WhatsApp)</label>
+            <div class="time-wrap">
+              <div class="form-group" style="flex:1">
+                <label class="form-label" for="quiet-from">From</label>
+                <input class="form-input" type="time" id="quiet-from" value="22:00" />
+              </div>
+              <div class="time-separator">—</div>
+              <div class="form-group" style="flex:1">
+                <label class="form-label" for="quiet-to">To</label>
+                <input class="form-input" type="time" id="quiet-to" value="07:00" />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn btn-ghost" type="button" onclick="prevStep(2)" style="flex-shrink:0">← Back</button>
+            <button class="btn btn-primary" type="submit" style="flex:1;justify-content:center">
+              Continue — Connect Gmail →
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===== STEP 4: Connect Gmail ===== -->
+    <section class="onboard-step" id="step-4">
+      <div class="onboard-card glass-card animate-scale-in">
+        <div class="onboard-card-header">
+          <div class="step-emoji">🔗</div>
+          <h1>Connect Your Inbox</h1>
+          <p>Link your Gmail account so BharatFlow can start monitoring and filtering in real-time.</p>
+        </div>
+
+        <div class="onboard-form">
+          <!-- Gmail OAuth -->
+          <div class="connect-option glass-card" id="gmail-connect-card">
+            <div class="connect-option-left">
+              <div class="connect-icon" style="background:rgba(234,67,53,0.15);border-color:rgba(234,67,53,0.3)">
+                <svg width="28" height="28" viewBox="0 0 24 24"><path fill="#EA4335" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+              </div>
+              <div>
+                <div class="connect-name">Gmail / Google</div>
+                <div class="connect-desc">OAuth2 — Read-only, fully secure</div>
+              </div>
+            </div>
+            <button class="btn btn-outline btn-sm" id="btn-gmail" onclick="connectGmail()">Connect</button>
+          </div>
+
+          <div class="connect-option glass-card" style="opacity:0.5">
+            <div class="connect-option-left">
+              <div class="connect-icon" style="background:rgba(0,120,212,0.15);border-color:rgba(0,120,212,0.3)">
+                <svg width="28" height="28" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#0078D4"/><text x="12" y="17" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Oa</text></svg>
+              </div>
+              <div>
+                <div class="connect-name">Outlook / Office 365</div>
+                <div class="connect-desc">Microsoft OAuth — Coming Soon</div>
+              </div>
+            </div>
+            <span class="tag tag-primary">Soon</span>
+          </div>
+
+          <!-- Security Notice -->
+          <div class="security-notice">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent2)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <div>
+              <strong>Your security is our priority</strong><br/>
+              We request only read-only access to your Gmail. We never store email bodies permanently — only metadata & extracted summaries.
+            </div>
+          </div>
+
+          <!-- WhatsApp Test -->
+          <div class="wa-test-section">
+            <div class="form-group">
+              <label class="form-label" for="wa-test-num">Test WhatsApp Delivery</label>
+              <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:10px">
+                Send a test message to verify your WhatsApp number before going live.
+              </p>
+              <div class="flex gap-8">
+                <input class="form-input" type="tel" id="wa-test-num" placeholder="+91 98765 43210" style="flex:1" />
+                <button class="btn btn-outline" type="button" onclick="sendWATest()" id="btn-wa-test" style="flex-shrink:0;white-space:nowrap">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                  Send Test
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions mt-24">
+            <button class="btn btn-ghost" type="button" onclick="prevStep(3)" style="flex-shrink:0">← Back</button>
+            <button class="btn btn-primary" type="button" onclick="completeOnboarding()" style="flex:1;justify-content:center" id="btn-finish">
+              🚀 Launch My Dashboard →
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Toast Container -->
+  <div id="toast-container"></div>
+  <script src="script.js"></script>
+  <script src="onboarding.js"></script>
+</body>
+</html>

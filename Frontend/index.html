@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BharatFlow — AI-Powered Smart Notification Delivery</title>
+  <meta name="description" content="BharatFlow filters your emails with AI and delivers only what matters — straight to WhatsApp. Built for India." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+  <div class="bg-mesh"></div>
+
+  <!-- ══════════════════ NAVBAR ══════════════════ -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-logo" aria-label="BharatFlow Home">
+        <div class="logo-mark">
+          <svg width="36" height="36" viewBox="0 0 28 28" fill="none">
+            <path d="M14 2L26 8V20L14 26L2 20V8L14 2Z" fill="url(#g-nav)" opacity="0.9"/>
+            <path d="M14 8L20 11V17L14 20L8 17V11L14 8Z" fill="white" opacity="0.28"/>
+            <circle cx="14" cy="14" r="3" fill="white"/>
+            <defs><linearGradient id="g-nav" x1="2" y1="2" x2="26" y2="26" gradientUnits="userSpaceOnUse"><stop stop-color="#6C3BF5"/><stop offset="1" stop-color="#4F8EF7"/></linearGradient></defs>
+          </svg>
+        </div>
+        <span class="logo-text">BharatFlow</span>
+      </a>
+
+      <div class="nav-links hide-mobile">
+        <a href="#features"    data-i18n="nav.features">Features</a>
+        <a href="#how-it-works" data-i18n="nav.how">How It Works</a>
+        <a href="#testimonials" data-i18n="nav.reviews">Reviews</a>
+      </div>
+
+      <div class="nav-actions">
+        <!-- Language Toggle -->
+        <div class="lang-btn" role="group" aria-label="Language selector">
+          <button class="lang-opt active" id="lang-en" onclick="setLang('en')" aria-pressed="true">EN</button>
+          <button class="lang-opt" id="lang-hi" onclick="setLang('hi')" aria-pressed="false">हिं</button>
+        </div>
+
+        <!-- Theme Toggle -->
+        <button class="theme-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+          <svg id="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg id="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+
+        <button class="btn btn-ghost btn-sm hide-mobile" onclick="openModal('login')" data-i18n="nav.signin">Sign In</button>
+        <button class="btn btn-primary btn-sm" onclick="openModal('signup')" id="nav-cta" data-i18n="nav.getstarted">Get Started Free</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══════════════════ HERO ══════════════════ -->
+  <section class="hero" id="hero">
+    <div class="container">
+      <div class="hero-content stagger">
+        <div class="hero-eyebrow">
+          <span class="status-dot active"></span>
+          <span data-i18n="hero.badge">Trusted by 2,000+ professionals across India</span>
+        </div>
+
+        <h1 class="hero-title">
+          <span data-i18n="hero.title1">Your Inbox,</span><br/>
+          <span class="line2" data-i18n="hero.title2">Intelligently Filtered</span><br/>
+          <span data-i18n="hero.title3">Delivered to WhatsApp</span>
+        </h1>
+
+        <p class="hero-subtitle" data-i18n="hero.subtitle">
+          BharatFlow uses AI to cut through the noise — filtering emails, job alerts,
+          and notifications to surface only what truly matters, delivered instantly on WhatsApp.
+        </p>
+
+        <div class="hero-cta">
+          <button class="btn btn-primary btn-lg" onclick="openModal('signup')" id="hero-cta-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span data-i18n="hero.cta1">Start for Free</span>
+          </button>
+          <button class="btn btn-outline btn-lg" onclick="scrollTo('#how-it-works')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+            <span data-i18n="hero.cta2">See How It Works</span>
+          </button>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-value">98%</span>
+            <span class="stat-label" data-i18n="hero.stat1">Noise Reduced</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-value">&lt;2s</span>
+            <span class="stat-label" data-i18n="hero.stat2">Delivery Time</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-value">AI</span>
+            <span class="stat-label" data-i18n="hero.stat3">Powered Filters</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard Preview -->
+      <div class="hero-visual animate-float">
+        <div class="hero-preview glass-card">
+          <div class="preview-header">
+            <div class="preview-dots"><span></span><span></span><span></span></div>
+            <span class="preview-title" data-i18n="preview.title">Live Feed</span>
+            <div class="preview-live"><span class="status-dot active"></span><span data-i18n="preview.live">Live</span></div>
+          </div>
+          <div class="preview-items">
+            <div class="preview-item">
+              <div class="p-icon" style="background:rgba(16,185,129,0.15)">💼</div>
+              <div class="p-body">
+                <div class="p-title">SDE-2 Opening at Flipkart</div>
+                <div class="p-meta">LinkedIn · 2 min ago</div>
+              </div>
+              <span class="tag tag-green" data-i18n="tag.sent">Sent</span>
+            </div>
+            <div class="preview-item filtered">
+              <div class="p-icon" style="background:rgba(239,68,68,0.12)">🚫</div>
+              <div class="p-body">
+                <div class="p-title">50% Off — Sale ends today!</div>
+                <div class="p-meta" data-i18n="preview.blocked">Auto-blocked</div>
+              </div>
+              <span class="tag tag-red" data-i18n="tag.filtered">Filtered</span>
+            </div>
+            <div class="preview-item">
+              <div class="p-icon" style="background:rgba(79,70,229,0.15)">🐙</div>
+              <div class="p-body">
+                <div class="p-title">GitHub PR Review Requested</div>
+                <div class="p-meta">GitHub · 5 min ago</div>
+              </div>
+              <span class="tag tag-primary" data-i18n="tag.sent">Sent</span>
+            </div>
+            <div class="preview-item">
+              <div class="p-icon" style="background:rgba(245,158,11,0.12)">⏳</div>
+              <div class="p-body">
+                <div class="p-title">Server CPU spike 87%</div>
+                <div class="p-meta">AWS · Processing…</div>
+              </div>
+              <span class="tag tag-amber" data-i18n="tag.queued">Queued</span>
+            </div>
+          </div>
+          <div class="preview-footer">
+            <div class="wa-pill">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#10B981"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+              <span data-i18n="preview.wa">Delivering via WhatsApp</span>
+            </div>
+            <span><b>3</b> <span data-i18n="preview.today">sent today</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ FEATURES ══════════════════ -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-header center stagger">
+        <div class="eyebrow" data-i18n="features.eyebrow">Why BharatFlow</div>
+        <h2><span data-i18n="features.title1">Built for the</span> <span class="text-gradient" data-i18n="features.title2">Smart Professional</span></h2>
+        <p data-i18n="features.subtitle">Everything you need to reclaim your focus and stay on top of what matters.</p>
+      </div>
+      <div class="features-grid stagger">
+
+        <div class="feature-card glass-card">
+          <div class="feature-icon" style="background:rgba(79,70,229,0.12);color:var(--primary-light)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+          </div>
+          <h3 data-i18n="feat1.title">AI-Powered Filtering</h3>
+          <p data-i18n="feat1.desc">Our model learns your preferences to surface only genuinely relevant notifications, automatically improving over time.</p>
+          <div class="feature-tags"><span class="tag tag-primary">ML Model</span><span class="tag tag-blue">NLP</span></div>
+        </div>
+
+        <div class="feature-card glass-card">
+          <div class="feature-icon" style="background:rgba(16,185,129,0.12);color:var(--green)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+          </div>
+          <h3 data-i18n="feat2.title">WhatsApp Delivery</h3>
+          <p data-i18n="feat2.desc">Filtered results land directly in your WhatsApp — no extra app needed. Uses Meta Cloud API for speed and reliability.</p>
+          <div class="feature-tags"><span class="tag tag-green">Meta API</span><span class="tag tag-blue">Instant</span></div>
+        </div>
+
+        <div class="feature-card glass-card">
+          <div class="feature-icon" style="background:rgba(239,68,68,0.1);color:var(--red)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <h3 data-i18n="feat3.title">Gmail Integration</h3>
+          <p data-i18n="feat3.desc">Connect your Gmail in one click via OAuth2. We read, classify and filter in real-time — fully secure, read-only access.</p>
+          <div class="feature-tags"><span class="tag tag-red">Gmail API</span><span class="tag tag-primary">OAuth2</span></div>
+        </div>
+
+        <div class="feature-card glass-card">
+          <div class="feature-icon" style="background:rgba(59,130,246,0.12);color:var(--blue)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+          </div>
+          <h3 data-i18n="feat4.title">Smart Dashboard</h3>
+          <p data-i18n="feat4.desc">View active filters, delivery stats, and keyword performance. Manage everything from a clean, unified interface.</p>
+          <div class="feature-tags"><span class="tag tag-blue">Analytics</span><span class="tag tag-green">Real-time</span></div>
+        </div>
+
+        <div class="feature-card glass-card">
+          <div class="feature-icon" style="background:rgba(245,158,11,0.12);color:var(--amber)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          </div>
+          <h3 data-i18n="feat5.title">Multi-Source Tracking</h3>
+          <p data-i18n="feat5.desc">Monitor job boards, GitHub, LinkedIn, news feeds, and custom domains — all scored by your personal relevance model.</p>
+          <div class="feature-tags"><span class="tag tag-amber">Multi-Source</span><span class="tag tag-primary">Custom</span></div>
+        </div>
+
+        <div class="feature-card glass-card">
+          <div class="feature-icon" style="background:rgba(16,185,129,0.1);color:var(--green)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3 data-i18n="feat6.title">Privacy First</h3>
+          <p data-i18n="feat6.desc">Your data stays yours. We never sell email content. All processing is server-side with full encryption at rest and in transit.</p>
+          <div class="feature-tags"><span class="tag tag-green">Encrypted</span><span class="tag tag-primary">GDPR</span></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ HOW IT WORKS ══════════════════ -->
+  <section class="section" id="how-it-works">
+    <div class="container">
+      <div class="section-header center stagger">
+        <div class="eyebrow" data-i18n="how.eyebrow">Process</div>
+        <h2><span data-i18n="how.title">How BharatFlow Works</span></h2>
+        <p data-i18n="how.subtitle">Three steps. Zero noise. Instant WhatsApp delivery.</p>
+      </div>
+      <div class="steps-row stagger">
+        <div class="step-item">
+          <div class="step-num">01</div>
+          <span class="step-emoji">🔗</span>
+          <h3 data-i18n="step1.title">Connect Your Sources</h3>
+          <p data-i18n="step1.desc">Link your Gmail and specify domains to monitor. Setup takes under 2 minutes.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-num">02</div>
+          <span class="step-emoji">🧠</span>
+          <h3 data-i18n="step2.title">Set Your Filters</h3>
+          <p data-i18n="step2.desc">Define keywords, topics and goals. Our AI learns from your choices automatically.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-num">03</div>
+          <span class="step-emoji">📲</span>
+          <h3 data-i18n="step3.title">Receive on WhatsApp</h3>
+          <p data-i18n="step3.desc">Relevant alerts arrive on WhatsApp instantly with a summary and direct link.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ TESTIMONIALS ══════════════════ -->
+  <section class="section" id="testimonials">
+    <div class="container">
+      <div class="section-header center stagger">
+        <div class="eyebrow" data-i18n="testi.eyebrow">Testimonials</div>
+        <h2><span data-i18n="testi.title1">Loved by</span> <span class="text-gradient" data-i18n="testi.title2">Professionals</span></h2>
+      </div>
+      <div class="testi-grid stagger">
+        <div class="testi-card glass-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text" data-i18n="testi1.text">"I was missing job alerts buried in 200 promotional emails. BharatFlow fixed that completely. Now only relevant SDE roles hit my WhatsApp."</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background:var(--primary)">AR</div>
+            <div>
+              <div class="testi-name">Arjun Rao</div>
+              <div class="testi-role">Software Engineer, Bangalore</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card glass-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text" data-i18n="testi2.text">"The WhatsApp delivery is brilliant. I check email maybe once a day now, but urgent items reach me in seconds. My focus has improved massively."</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background:var(--green)">PS</div>
+            <div>
+              <div class="testi-name">Priya Sharma</div>
+              <div class="testi-role">Product Manager, Delhi</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card glass-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text" data-i18n="testi3.text">"As a freelancer tracking multiple clients, BharatFlow's domain whitelist feature is a game changer. Zero clutter, all signal."</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background:var(--amber)">MK</div>
+            <div>
+              <div class="testi-name">Mohit Kumar</div>
+              <div class="testi-role">Freelance Developer, Pune</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ CTA ══════════════════ -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-box glass-card stagger">
+        <h2><span data-i18n="cta.title1">Ready to</span> <span class="text-gradient" data-i18n="cta.title2">Cut the Noise?</span></h2>
+        <p data-i18n="cta.subtitle">Join thousands of professionals who reclaimed their focus with BharatFlow.</p>
+        <button class="btn btn-primary btn-lg mt-24" onclick="openModal('signup')" id="cta-btn">
+          <span data-i18n="cta.btn">Get Started — It's Free</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ FOOTER ══════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <a href="index.html" class="nav-logo">
+            <div class="logo-mark">
+              <svg width="36" height="36" viewBox="0 0 28 28" fill="none">
+                <path d="M14 2L26 8V20L14 26L2 20V8L14 2Z" fill="url(#g-ft)" opacity="0.9"/>
+                <path d="M14 8L20 11V17L14 20L8 17V11L14 8Z" fill="white" opacity="0.28"/>
+                <circle cx="14" cy="14" r="3" fill="white"/>
+                <defs><linearGradient id="g-ft" x1="2" y1="2" x2="26" y2="26" gradientUnits="userSpaceOnUse"><stop stop-color="#6C3BF5"/><stop offset="1" stop-color="#4F8EF7"/></linearGradient></defs>
+              </svg>
+            </div>
+            <span class="logo-text">BharatFlow</span>
+          </a>
+          <p data-i18n="footer.tagline">AI-powered notification intelligence for Indian professionals.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="#" data-i18n="footer.privacy">Privacy</a>
+          <a href="#" data-i18n="footer.terms">Terms</a>
+          <a href="#" data-i18n="footer.contact">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ══════════════════ AUTH MODAL ══════════════════ -->
+  <div class="modal-backdrop" id="modal-backdrop" onclick="closeModal()"></div>
+  <div class="auth-modal glass-card" id="auth-modal" role="dialog" aria-modal="true" aria-labelledby="modal-h">
+
+    <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
+
+    <div class="modal-tabs">
+      <button class="modal-tab active" id="tab-login" onclick="switchTab('login')" data-i18n="auth.signin">Sign In</button>
+      <button class="modal-tab" id="tab-signup" onclick="switchTab('signup')" data-i18n="auth.create">Create Account</button>
+    </div>
+
+    <!-- LOGIN -->
+    <form id="form-login" class="auth-form" onsubmit="handleLogin(event)">
+      <div>
+        <h2 class="modal-title" id="modal-h" data-i18n="login.title">Welcome Back</h2>
+        <p class="modal-subtitle" data-i18n="login.sub">Sign in to your BharatFlow account</p>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="l-email" data-i18n="form.email">Email Address</label>
+        <input class="form-input" type="email" id="l-email" placeholder="you@example.com" required autocomplete="email"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="l-pwd">
+          <span data-i18n="form.password">Password</span>
+          <a href="#" class="forgot-link" data-i18n="form.forgot">Forgot?</a>
+        </label>
+        <div class="input-group">
+          <input class="form-input" type="password" id="l-pwd" placeholder="••••••••" required autocomplete="current-password"/>
+          <span class="input-suffix"><button type="button" class="eye-btn" onclick="togglePwd('l-pwd',this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></span>
+        </div>
+      </div>
+      <button class="btn btn-primary w-full" type="submit" id="btn-login">
+        <span class="btn-text" data-i18n="auth.signin">Sign In</span>
+        <span class="spinner" style="display:none"></span>
+      </button>
+      <div class="divider" data-i18n="form.orwith">or continue with</div>
+      <button type="button" class="btn btn-google w-full" onclick="handleGoogle()">
+        <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        <span data-i18n="auth.google">Continue with Google</span>
+      </button>
+    </form>
+
+    <!-- SIGNUP -->
+    <form id="form-signup" class="auth-form" style="display:none" onsubmit="handleSignup(event)">
+      <div>
+        <h2 class="modal-title" data-i18n="signup.title">Create Account</h2>
+        <p class="modal-subtitle" data-i18n="signup.sub">Start filtering smarter today — free forever</p>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="s-fn" data-i18n="form.fname">First Name</label>
+          <input class="form-input" type="text" id="s-fn" placeholder="Arjun" required autocomplete="given-name"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="s-ln" data-i18n="form.lname">Last Name</label>
+          <input class="form-input" type="text" id="s-ln" placeholder="Rao" required autocomplete="family-name"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="s-email" data-i18n="form.email">Email Address</label>
+        <input class="form-input" type="email" id="s-email" placeholder="you@gmail.com" required autocomplete="email"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="s-phone" data-i18n="form.phone">WhatsApp Number</label>
+        <div class="input-group">
+          <span class="input-prefix-text">🇮🇳 +91</span>
+          <input class="form-input" type="tel" id="s-phone" placeholder="98765 43210"
+            pattern="[0-9]{10}" maxlength="10" required style="padding-left:70px"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="s-pwd" data-i18n="form.password">Password</label>
+        <div class="input-group">
+          <input class="form-input" type="password" id="s-pwd" placeholder="Minimum 8 characters" required minlength="8"/>
+          <span class="input-suffix"><button type="button" class="eye-btn" onclick="togglePwd('s-pwd',this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></span>
+        </div>
+        <div class="pwd-strength" id="pwd-strength">
+          <div class="progress-bar mt-8"><div class="progress-fill" id="pwd-fill" style="width:0%"></div></div>
+          <span class="pwd-label" id="pwd-label"></span>
+        </div>
+      </div>
+      <div class="terms-row">
+        <input type="checkbox" id="s-terms" required/>
+        <label for="s-terms">
+          <span data-i18n="form.agree">I agree to the</span>
+          <a href="#" data-i18n="form.terms"> Terms of Service</a>
+          &amp; <a href="#" data-i18n="form.privacy2">Privacy Policy</a>
+        </label>
+      </div>
+      <button class="btn btn-primary w-full" type="submit" id="btn-signup">
+        <span class="btn-text" data-i18n="signup.btn">Create My Account</span>
+        <span class="spinner" style="display:none"></span>
+      </button>
+      <div class="divider" data-i18n="form.orwith">or continue with</div>
+      <button type="button" class="btn btn-google w-full" onclick="handleGoogle()">
+        <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        <span data-i18n="auth.google">Continue with Google</span>
+      </button>
+    </form>
+  </div>
+
+  <div id="toast-container"></div>
+  <script src="script.js"></script>
+</body>
+</html>
