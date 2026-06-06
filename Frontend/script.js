@@ -405,43 +405,80 @@ function switchTab(tab) {
   }
 }
 
-function handleLogin(e) {
+async function handleLogin(e) {
   e.preventDefault();
   const btn = document.getElementById('btn-login');
+  const email = document.getElementById('l-email')?.value;
+  const password = document.getElementById('l-pwd')?.value;
+  
   setLoading(btn, true);
-  setTimeout(() => {
-    setLoading(btn, false);
-    const email = document.getElementById('l-email')?.value;
-    localStorage.setItem('bf_user', JSON.stringify({ email, name: 'User' }));
+  
+  try {
+    const res = await fetch('http://localhost:8080/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+    
+    if (!res.ok) throw new Error('Login failed');
+    const data = await res.json();
+    
+    localStorage.setItem('bf_user', JSON.stringify({ email, name: data.name }));
+    localStorage.setItem('bf_user_id', data.user_id);
+    
     showToast(currentLang === 'hi' ? 'स्वागत है! डैशबोर्ड पर जा रहे हैं…' : 'Welcome back! Redirecting…', 'success');
     setTimeout(() => { window.location.href = 'dashboard.html'; }, 1000);
-  }, 1200);
+  } catch (err) {
+    showToast(currentLang === 'hi' ? 'लॉगिन विफल' : 'Invalid email or password', 'error');
+  } finally {
+    setLoading(btn, false);
+  }
 }
 
-function handleSignup(e) {
+async function handleSignup(e) {
   e.preventDefault();
   const terms = document.getElementById('s-terms');
   if (!terms?.checked) {
     showToast(currentLang === 'hi' ? 'कृपया शर्तें स्वीकार करें' : 'Please accept the Terms of Service', 'warning');
     return;
   }
+  
   const btn = document.getElementById('btn-signup');
+  const fname = document.getElementById('s-fn')?.value || '';
+  const lname = document.getElementById('s-ln')?.value || '';
+  const email = document.getElementById('s-email')?.value || '';
+  const phone = document.getElementById('s-phone')?.value || '';
+  const password = document.getElementById('s-pwd')?.value || '';
+
   setLoading(btn, true);
-  setTimeout(() => {
-    setLoading(btn, false);
-    const name  = document.getElementById('s-fn')?.value;
-    const email = document.getElementById('s-email')?.value;
-    const phone = document.getElementById('s-phone')?.value;
-    localStorage.setItem('bf_user', JSON.stringify({ name, email, phone }));
+  
+  try {
+    const res = await fetch('http://localhost:8080/api/auth/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ firstName: fname, lastName: lname, email, phone, password })
+    });
+
+    if (!res.ok) throw new Error('Signup failed');
+    const data = await res.json();
+    
+    localStorage.setItem('bf_user', JSON.stringify({ name: data.name, email, phone }));
+    localStorage.setItem('bf_user_id', data.user_id);
+
     showToast(currentLang === 'hi' ? 'खाता बनाया! प्रोफ़ाइल सेटअप करें 🎉' : 'Account created! Setting up your profile 🎉', 'success');
     setTimeout(() => { window.location.href = 'onboarding.html'; }, 1000);
-  }, 1400);
+  } catch (err) {
+    showToast(currentLang === 'hi' ? 'त्रुटि: खाता नहीं बन सका' : 'Error: Email may already exist', 'error');
+  } finally {
+    setLoading(btn, false);
+  }
 }
 
 function handleGoogle() {
   showToast(currentLang === 'hi' ? 'Google OAuth पर जा रहे हैं…' : 'Redirecting to Google OAuth…', 'info');
   setTimeout(() => {
     localStorage.setItem('bf_user', JSON.stringify({ name: 'Google User', email: 'user@gmail.com' }));
+    localStorage.setItem('bf_user_id', 1);
     showToast(currentLang === 'hi' ? 'Google से साइन इन!' : 'Signed in with Google!', 'success');
     setTimeout(() => { window.location.href = 'onboarding.html'; }, 600);
   }, 900);
@@ -498,7 +535,7 @@ function setLoading(btn, on) {
   if (spin) spin.style.display = on ? 'inline-block' : 'none';
 }
 
-function scrollTo(selector) {
+function scrollToSection(selector) {
   const el = document.querySelector(selector);
   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }

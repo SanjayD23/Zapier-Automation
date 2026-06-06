@@ -43,6 +43,14 @@
         <span data-i18n="dash.feed">Live Feed</span>
         <span class="status-dot active" style="margin-left:auto"></span>
       </a>
+      <a href="#" class="nav-item" data-section="watchlist" onclick="showSection('watchlist', this)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+        <span data-i18n="dash.watchlist">Watchlist (Prices)</span>
+      </a>
+      <a href="#" class="nav-item" data-section="integrations" onclick="showSection('integrations', this)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+        <span data-i18n="dash.integrations">Integrations</span>
+      </a>
       <a href="#" class="nav-item" data-section="analytics" onclick="showSection('analytics', this)">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
         <span data-i18n="dash.analytics">Analytics</span>
@@ -274,6 +282,86 @@
       </div>
     </section>
 
+    <!-- ===== SECTION: WATCHLIST ===== -->
+    <section class="dash-section" id="section-watchlist">
+      <div class="section-title-row">
+        <div>
+          <h2>E-Commerce Watchlist</h2>
+          <p style="color:var(--text-muted);font-size:0.88rem;margin-top:4px">Track Amazon and Flipkart prices. Get notified when they drop.</p>
+        </div>
+        <button class="btn btn-primary" onclick="openWatchlistModal()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Product
+        </button>
+      </div>
+      
+      <div class="filters-grid" id="watchlist-grid">
+        <!-- Simulated empty state -->
+        <div class="empty-state" style="grid-column: 1 / -1;">
+          <div class="empty-state-icon">🛍️</div>
+          <p>Your watchlist is empty. Add a product URL to start tracking prices.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SECTION: INTEGRATIONS ===== -->
+    <section class="dash-section" id="section-integrations">
+      <div class="section-title-row">
+        <div>
+          <h2>Integrations</h2>
+          <p style="color:var(--text-muted);font-size:0.88rem;margin-top:4px">Connect your apps to enable smart filtering and delivery</p>
+        </div>
+      </div>
+
+      <div class="settings-grid">
+        <!-- Gmail Connection -->
+        <div class="glass-card settings-card">
+          <h3 class="settings-card-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Gmail Connection
+          </h3>
+          <div class="settings-body">
+            <div class="connection-status connected">
+              <div class="flex items-center gap-12">
+                <div class="connect-icon-sm">G</div>
+                <div>
+                  <div style="font-weight:600">arjun@gmail.com</div>
+                  <div style="font-size:0.78rem;color:var(--accent2)">✓ Connected • Last sync: 2 min ago</div>
+                </div>
+              </div>
+              <button class="btn btn-ghost btn-sm" style="color:var(--danger)" onclick="disconnectGmail()">Disconnect</button>
+            </div>
+            <button class="btn btn-outline w-full mt-8" style="justify-content:center" onclick="syncGmail()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+              Sync Now
+            </button>
+          </div>
+        </div>
+
+        <!-- WhatsApp Connection -->
+        <div class="glass-card settings-card">
+          <h3 class="settings-card-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#25D366" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            WhatsApp Delivery
+          </h3>
+          <div class="settings-body">
+            <div class="connection-status connected">
+              <div class="flex items-center gap-12">
+                <div class="connect-icon-sm" style="background:rgba(37,211,102,0.15);color:#25D366">WA</div>
+                <div>
+                  <div style="font-weight:600">+91 98765 43210</div>
+                  <div style="font-size:0.78rem;color:var(--accent2)">✓ Delivery Active</div>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-outline w-full mt-8" style="justify-content:center" onclick="sendTestPing()">
+              Send Test Ping
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ===== SECTION: ANALYTICS ===== -->
     <section class="dash-section" id="section-analytics">
       <div class="section-title-row">
@@ -385,30 +473,6 @@
           </div>
         </div>
 
-        <!-- Gmail Connection -->
-        <div class="glass-card settings-card">
-          <h3 class="settings-card-title">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            Gmail Connection
-          </h3>
-          <div class="settings-body">
-            <div class="connection-status connected">
-              <div class="flex items-center gap-12">
-                <div class="connect-icon-sm">G</div>
-                <div>
-                  <div style="font-weight:600">arjun@gmail.com</div>
-                  <div style="font-size:0.78rem;color:var(--accent2)">✓ Connected • Last sync: 2 min ago</div>
-                </div>
-              </div>
-              <button class="btn btn-ghost btn-sm" style="color:var(--danger)" onclick="disconnectGmail()">Disconnect</button>
-            </div>
-            <button class="btn btn-outline w-full mt-8" style="justify-content:center" onclick="syncGmail()">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
-              Sync Now
-            </button>
-          </div>
-        </div>
-
         <!-- Danger Zone -->
         <div class="glass-card settings-card danger-zone">
           <h3 class="settings-card-title" style="color:var(--danger)">
@@ -483,6 +547,28 @@
       <div class="form-actions" style="margin-top:4px">
         <button class="btn btn-ghost" type="button" onclick="closeFilterModal()" style="flex-shrink:0">Cancel</button>
         <button class="btn btn-primary" type="submit" style="flex:1;justify-content:center">Save Filter</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- ========== WATCHLIST MODAL ========== -->
+  <div class="modal glass-card" id="watchlist-modal" role="dialog" aria-modal="true" style="display:none;">
+    <button class="modal-close" onclick="closeWatchlistModal()">✕</button>
+    <h3 style="margin-bottom:4px">Add Product to Watchlist</h3>
+    <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:24px">Paste an Amazon or Flipkart URL</p>
+
+    <form id="watchlist-form" onsubmit="saveWatchlistProduct(event)" style="display:flex;flex-direction:column;gap:16px">
+      <div class="form-group">
+        <label class="form-label" for="w-url">Product URL *</label>
+        <input class="form-input" type="url" id="w-url" placeholder="https://amazon.in/dp/..." required />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="w-price">Target Price (₹) *</label>
+        <input class="form-input" type="number" id="w-price" placeholder="e.g. 24999" required />
+      </div>
+      <div class="form-actions" style="margin-top:4px">
+        <button class="btn btn-ghost" type="button" onclick="closeWatchlistModal()" style="flex-shrink:0">Cancel</button>
+        <button class="btn btn-primary" type="submit" style="flex:1;justify-content:center">Start Tracking</button>
       </div>
     </form>
   </div>

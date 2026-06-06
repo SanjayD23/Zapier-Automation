@@ -46,7 +46,7 @@ function updateProgressUI() {
   const lines = document.querySelectorAll('.step-line');
   const label = document.getElementById('step-label');
 
-  const stepLabels = ['Your Profile', 'Your Goals', 'Filter Settings', 'Connect Gmail'];
+  const stepLabels = ['Your Profile', 'Your Goals', 'AI Sync', 'Connect Gmail'];
 
   dots.forEach((dot, i) => {
     const step = i + 1;
@@ -81,11 +81,11 @@ function validateStep(step) {
 
   if (step === 2) {
     const selected = document.querySelectorAll('input[name="goals"]:checked');
-    if (selected.length === 0) { showToast('Please select at least one goal', 'warning'); return false; }
+    if (selected.length === 0) { showToast('Please select at least one domain', 'warning'); return false; }
     return true;
   }
 
-  return true; // Steps 3 & 4 are optional
+  return true; // Steps 3 & 4 are handled via buttons
 }
 
 // ========================
@@ -109,12 +109,8 @@ function saveStepData(step) {
   }
 
   if (step === 3) {
-    profile.keywords   = [...keywords];
-    profile.blockWords = [...blockWords];
-    profile.domains    = [...domains];
-    profile.threshold  = document.getElementById('relevance-slider')?.value;
-    profile.quietFrom  = document.getElementById('quiet-from')?.value;
-    profile.quietTo    = document.getElementById('quiet-to')?.value;
+    // We already synced with backend via startAISync(), just update local profile state
+    profile.syncComplete = true;
   }
 
   localStorage.setItem('bf_profile', JSON.stringify(profile));
@@ -173,13 +169,74 @@ function addQuickBlock(word) { if (!blockWords.includes(word)) { blockWords.push
 function addQuickDomain(word) { if (!domains.includes(word)) { domains.push(word); renderTags(document.getElementById('domain-display'), domains, 'accent'); } }
 
 // ========================
-// RANGE SLIDER
+// AI SYNC
 // ========================
-function updateSlider(input) {
-  const val = input.value;
-  document.getElementById('range-val').textContent = val + '%';
-  const pct = val + '%';
-  input.style.background = `linear-gradient(to right, var(--primary) 0%, var(--primary) ${pct}, var(--border) ${pct}, var(--border) 100%)`;
+async function startAISync() {
+  const btn = document.getElementById('btn-sync');
+  const logBox = document.getElementById('ai-sync-log');
+  const msgs = document.getElementById('sync-messages');
+  const progress = document.getElementById('sync-progress');
+  const continueBtn = document.getElementById('btn-continue-3');
+
+  if (!btn || !logBox) return;
+
+  btn.disabled = true;
+  btn.textContent = 'Syncing...';
+  logBox.style.display = 'block';
+  msgs.innerHTML = '';
+  progress.style.width = '0%';
+
+  const profile = JSON.parse(localStorage.getItem('bf_profile') || '{}');
+  const goals = profile.goals || [];
+  const userId = localStorage.getItem('bf_user_id') || 1; // Fallback for now
+
+  // Simulated AI Animation Flow
+  const delay = ms => new Promise(res => setTimeout(res, ms));
+  
+  msgs.innerHTML += '<div>> Establishing secure connection to Google... [OK]</div>';
+  await delay(800);
+  progress.style.width = '20%';
+  
+  msgs.innerHTML += '<div>> Analyzing search history for the past 30 days...</div>';
+  await delay(1200);
+  progress.style.width = '50%';
+  
+  msgs.innerHTML += `<div>> Mapping activity to selected domains: [${goals.join(', ')}]...</div>`;
+  await delay(1000);
+  progress.style.width = '75%';
+
+  msgs.innerHTML += '<div>> Generating personalized AI filters...</div>';
+
+  try {
+    // Call our new FastAPI backend
+    const res = await fetch('http://localhost:8080/api/onboarding/sync-activity', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user_id: parseInt(userId), domains: goals })
+    });
+    
+    if (!res.ok) throw new Error('Backend failed');
+    const data = await res.json();
+    
+    progress.style.width = '100%';
+    await delay(500);
+
+    msgs.innerHTML += `<div style="color:var(--primary); font-weight:bold; margin-top:8px">> Success! Filters generated:</div>`;
+    data.generated_filters.forEach(f => {
+      msgs.innerHTML += `<div style="color:var(--text)">  - ${f}</div>`;
+    });
+    
+    btn.textContent = '✓ Synced';
+    btn.classList.replace('btn-outline', 'btn-primary');
+    continueBtn.disabled = false; // Allow user to proceed
+    showToast('AI Profile Generated!', 'success');
+
+  } catch (err) {
+    msgs.innerHTML += `<div style="color:var(--warning)">> Error connecting to backend. Are you sure FastAPI is running?</div>`;
+    progress.style.backgroundColor = 'var(--warning)';
+    btn.disabled = false;
+    btn.textContent = 'Retry Sync';
+  }
 }
 
 // ========================

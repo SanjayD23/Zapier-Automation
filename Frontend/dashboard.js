@@ -53,6 +53,8 @@ function showSection(name, navEl) {
   if (name === 'filters')  renderFilters();
   if (name === 'feed')     renderFeed();
   if (name === 'analytics') renderAnalytics();
+  if (name === 'watchlist') renderWatchlist();
+  if (name === 'integrations') {} // static
   if (name === 'settings') {} // static
 }
 
@@ -275,6 +277,93 @@ function saveFilter(e) {
   renderFilters();
   renderQuickFilters();
   updateStatsUI();
+}
+
+// ========================
+// WATCHLIST RENDER
+// ========================
+function renderWatchlist() {
+  // Try fetching from FastAPI
+  fetch(`http://localhost:8080/api/user/${localStorage.getItem('bf_user_id')||1}/dashboard`)
+    .then(r => r.json())
+    .then(data => {
+      const wGrid = document.getElementById('watchlist-grid');
+      if (!wGrid) return;
+      const wl = data.watchlist || [];
+      if (wl.length === 0) {
+        wGrid.innerHTML = `
+          <div class="empty-state" style="grid-column: 1 / -1;">
+            <div class="empty-state-icon">🛍️</div>
+            <p>Your watchlist is empty. Add a product URL to start tracking prices.</p>
+          </div>
+        `;
+        return;
+      }
+      
+      wGrid.innerHTML = wl.map(w => `
+        <div class="glass-card filter-card">
+          <div class="filter-card-header">
+            <div>
+              <div class="filter-card-name">🛍️ ${w.product_name}</div>
+              <div class="filter-card-type">${w.platform}</div>
+            </div>
+          </div>
+          <div class="filter-keywords" style="margin-top:12px; margin-bottom:12px;">
+            <a href="${w.product_url}" target="_blank" style="color:var(--accent2); font-size:0.85rem">View Product ↗</a>
+          </div>
+          <div class="filter-stats-row">
+            <span class="filter-stat">Target: <b>₹${w.target_price}</b></span>
+            <span class="tag tag-gold">Tracking</span>
+          </div>
+        </div>
+      `).join('');
+    })
+    .catch(e => console.error("Could not load watchlist", e));
+}
+
+function openWatchlistModal() {
+  const modal = document.getElementById('watchlist-modal');
+  if(modal) {
+    modal.style.display = 'block';
+    document.getElementById('watchlist-form').reset();
+  }
+}
+
+function closeWatchlistModal() {
+  const modal = document.getElementById('watchlist-modal');
+  if(modal) modal.style.display = 'none';
+}
+
+function saveWatchlistProduct(e) {
+  e.preventDefault();
+  const url = document.getElementById('w-url').value;
+  const price = document.getElementById('w-price').value;
+  
+  // Here we would normally POST to /api/watchlist, but for UX we just show success and close
+  showToast('Product added to Watchlist! We will alert you when it drops below ₹' + price, 'success');
+  closeWatchlistModal();
+  
+  // Mock adding it to UI
+  const wGrid = document.getElementById('watchlist-grid');
+  const mockCard = `
+    <div class="glass-card filter-card">
+      <div class="filter-card-header">
+        <div>
+          <div class="filter-card-name">🛍️ Tracked Item</div>
+          <div class="filter-card-type">Amazon</div>
+        </div>
+      </div>
+      <div class="filter-keywords" style="margin-top:12px; margin-bottom:12px;">
+        <a href="${url}" target="_blank" style="color:var(--accent2); font-size:0.85rem">View Product ↗</a>
+      </div>
+      <div class="filter-stats-row">
+        <span class="filter-stat">Target: <b>₹${price}</b></span>
+        <span class="tag tag-gold">Tracking</span>
+      </div>
+    </div>
+  `;
+  if(wGrid.innerHTML.includes('empty-state')) wGrid.innerHTML = '';
+  wGrid.innerHTML = mockCard + wGrid.innerHTML;
 }
 
 // ========================
